@@ -1,13 +1,48 @@
 <h4 class="text-center">Login</h4>
 
-<form action="" class="form mt-4">
+<form action="" class="form mt-4" #loginForm="ngForm" (ngSubmit)="login()">
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Nome do usuário">
+    <input
+      [(ngModel)]="usuario"
+      #campoUsuario="ngModel"
+      name="usuario"
+      type="text"
+      class="form-control"
+      placeholder="Nome do usuário"
+      required
+    />
   </div>
+  <app-mensagem
+    mensagem="Usuário obrigatório"
+    *ngIf="campoUsuario.invalid && campoUsuario.touched"
+  >
+  </app-mensagem>
+
   <div class="form-group mt-4">
-    <input type="password" class="form-control" placeholder="Senha">
+    <input
+      [(ngModel)]="senha"
+      #campoSenha="ngModel"
+      name="senha"
+      type="password"
+      class="form-control"
+      placeholder="Senha"
+      required
+    />
   </div>
+  <app-mensagem
+    mensagem="Senha obrigatória"
+    *ngIf="campoSenha.invalid && campoSenha.touched"
+  >
+  </app-mensagem>
+
   <div class="d-grid gap-2 mt-4">
-    <button class="btn btn-primary" type="submit">Login</button>
+    <button
+      [disabled]="loginForm.invalid"
+      class="btn btn-primary"
+      type="submit"
+    >
+      Login
+    </button>
   </div>
 </form>
+<p>Não é um usuário? <a [routerLink]="['novo-usuario']">Se cadastre!</a></p>
